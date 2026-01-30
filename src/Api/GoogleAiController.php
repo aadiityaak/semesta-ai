@@ -56,7 +56,7 @@ class GoogleAiController
         }
 
         // Call Google AI Studio API (Gemini)
-        $api_url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' . $api_key;
+        $api_url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent';
 
         $body = array(
             'contents' => array(
@@ -69,7 +69,10 @@ class GoogleAiController
         );
 
         $response = wp_remote_post($api_url, array(
-            'headers' => array('Content-Type' => 'application/json'),
+            'headers' => array(
+                'Content-Type' => 'application/json',
+                'x-goog-api-key' => $api_key
+            ),
             'body'    => json_encode($body),
             'timeout' => 30
         ));

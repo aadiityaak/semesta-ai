@@ -3,7 +3,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 ?>
-<div x-data="hppCalculator()" id="hpp-calculator-card" class="semesta-ai-container p-6 bg-white rounded-xl border border-gray-200 w-full mx-auto my-8">
+<div x-data="hppCalculator()" id="hpp-calculator-card" class="semesta-ai-container p-6 bg-white rounded-xl border border-gray-200 w-full mx-auto my-8 relative">
     <h2 class="text-2xl font-bold mb-6 text-gray-900 tracking-tight">Kalkulator HPP UMKM</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
@@ -60,6 +60,66 @@ if (! defined('ABSPATH')) {
             </svg>
             Export PNG
         </button>
+    </div>
+
+    <!-- Hidden Export Layout -->
+    <div id="hpp-export-layout" style="position: absolute; left: -9999px; top: 0; width: 800px; padding: 40px; background-color: white;">
+        <div class="text-center mb-10 border-b border-gray-100 pb-6">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Laporan HPP UMKM</h2>
+            <p class="text-gray-500">Perhitungan Harga Pokok Penjualan</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-10 mb-10">
+            <div class="space-y-5">
+                <h3 class="font-bold text-gray-800 text-lg border-b pb-2 mb-3">Komponen Biaya</h3>
+                <div class="flex justify-between items-center py-1 border-b border-gray-50">
+                    <span class="text-gray-600">Modal Bahan</span>
+                    <span class="font-medium text-gray-900" x-text="formatRupiah(form.material)"></span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-gray-50">
+                    <span class="text-gray-600">Biaya Produksi</span>
+                    <span class="font-medium text-gray-900" x-text="formatRupiah(form.production)"></span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-gray-50">
+                    <span class="text-gray-600">Biaya Kemasan</span>
+                    <span class="font-medium text-gray-900" x-text="formatRupiah(form.packaging)"></span>
+                </div>
+                <div class="flex justify-between items-center py-1 border-b border-gray-50">
+                    <span class="text-gray-600">Biaya Operasional</span>
+                    <span class="font-medium text-gray-900" x-text="formatRupiah(form.operational)"></span>
+                </div>
+            </div>
+
+            <div class="space-y-5">
+                <h3 class="font-bold text-gray-800 text-lg border-b pb-2 mb-3">Target Profit</h3>
+                <div class="flex flex-col justify-center items-center h-48 bg-blue-50 rounded-xl border border-blue-100">
+                    <span class="text-5xl font-bold text-blue-600" x-text="form.profit_percent + '%'"></span>
+                    <p class="text-blue-500 font-medium mt-2">Margin Keuntungan</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-8 mb-10 border border-gray-200">
+            <h3 class="font-bold text-gray-900 mb-6 text-xl text-center">Hasil Analisa Keuangan</h3>
+            <div class="grid grid-cols-3 gap-6 text-center">
+                <div class="p-6 bg-white rounded-xl shadow-sm">
+                    <p class="text-gray-500 text-sm mb-2 uppercase tracking-wide">HPP / Unit</p>
+                    <p class="text-2xl font-bold text-gray-800" x-text="formatRupiah(calculateHPP())"></p>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-sm">
+                    <p class="text-gray-500 text-sm mb-2 uppercase tracking-wide">Harga Jual</p>
+                    <p class="text-2xl font-bold text-green-600" x-text="formatRupiah(calculatePrice())"></p>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-sm">
+                    <p class="text-gray-500 text-sm mb-2 uppercase tracking-wide">Profit / Unit</p>
+                    <p class="text-2xl font-bold text-purple-600" x-text="formatRupiah(calculateMargin())"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center pt-8 border-t border-gray-200 mt-auto">
+            <p class="text-gray-400 font-medium italic">Dibuat dengan <b>Semesta AI</b> - semestaai.my.id</p>
+        </div>
     </div>
 </div>
 
@@ -123,7 +183,7 @@ if (! defined('ABSPATH')) {
             },
 
             exportToPDF() {
-                const element = document.getElementById('hpp-calculator-card');
+                const element = document.getElementById('hpp-export-layout');
                 window.html2canvas(element).then(canvas => {
                     const imgData = canvas.toDataURL('image/png');
                     const {
@@ -141,7 +201,7 @@ if (! defined('ABSPATH')) {
             },
 
             exportToPNG() {
-                const element = document.getElementById('hpp-calculator-card');
+                const element = document.getElementById('hpp-export-layout');
                 window.html2canvas(element).then(canvas => {
                     const link = document.createElement('a');
                     link.download = 'HPP-Calculator-SemestaAI.png';
