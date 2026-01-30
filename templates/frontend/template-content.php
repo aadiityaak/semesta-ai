@@ -63,7 +63,7 @@ $templates = new WP_Query($args);
                         <svg class="w-10 h-10 mb-2 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="<?php echo esc_attr($icon_path); ?>"></path>
                         </svg>
-                        <span class="font-semibold text-sm">Preview <?php echo esc_html(strtoupper(str_replace('_', ' ', $type))); ?></span>
+                        <span class="font-semibold text-sm"><?php echo esc_html(strtoupper(str_replace('_', ' ', $type))); ?></span>
                     </div>
                     <div class="w-full md:w-2/3">
                         <h3 class="font-semibold text-lg text-gray-900 mb-2"><?php the_title(); ?></h3>
