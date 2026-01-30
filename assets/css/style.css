@@ -1,0 +1,11 @@
+/* Semesta AI Plugin Styles */
+
+.semesta-ai-container {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.semesta-ai-container input[type="number"]::-webkit-inner-spin-button,
+.semesta-ai-container input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
