@@ -31,6 +31,7 @@ class Plugin
     new \SemestaAi\Admin\Settings();
     new \SemestaAi\Api\GoogleAiController();
     new \SemestaAi\Frontend\Shortcode();
+    new \SemestaAi\Core\PostTypes();
   }
 
   private function init_hooks()
